@@ -1,0 +1,25 @@
+app = "attendee-api"
+primary_region = "iad"
+
+min_machines_running = 1
+
+
+[env]
+  DJANGO_SETTINGS_MODULE = "attendee.settings.production"
+
+[[services]]
+  internal_port = 8000
+  protocol = "tcp"
+
+  [services.concurrency]
+    type = "connections"
+    soft_limit = 100
+    hard_limit = 200
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443

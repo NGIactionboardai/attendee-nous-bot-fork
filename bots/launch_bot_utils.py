@@ -36,6 +36,9 @@ def launch_bot(bot):
                 )
             except Exception as e:
                 logger.error(f"Failed to create fatal error bot not launched event for bot {bot.object_id} ({bot.id}): {str(e)}")
+    elif os.getenv("LAUNCH_BOT_METHOD") == "fly":
+        from bots.fly_bot_launcher.fly_bot_launcher import FlyBotLauncher
+        FlyBotLauncher().launch(bot)
     else:
         # Default to launching bot via celery
         from .tasks.run_bot_task import run_bot

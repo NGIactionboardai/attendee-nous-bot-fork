@@ -459,6 +459,7 @@ class BotController:
 
     def on_new_sample_from_gstreamer_pipeline(self, data):
         # For now, we'll assume that if rtmp streaming is enabled, we don't need to upload to s3
+        logger.error("🎧 GOT AUDIO SAMPLE FROM GSTREAMER")
         if self.rtmp_client:
             write_succeeded = self.rtmp_client.write_data(data)
             if not write_succeeded:
@@ -732,6 +733,7 @@ class BotController:
             return 3  # seconds
 
     def run(self):
+        logger.error("🔥 BOT_CONTROLLER_RUN_ENTERED 🔥")
         if self.run_called:
             raise Exception("Run already called, exiting")
         self.run_called = True
@@ -878,6 +880,12 @@ class BotController:
         # Add timeout just for audio processing
         self.first_timeout_call = True
         GLib.timeout_add(100, self.on_main_loop_timeout)
+
+        def debug_glib_tick():
+            logger.error("🟢 GLib tick alive")
+            return True  # keep repeating
+        
+        GLib.timeout_add_seconds(2, debug_glib_tick)
 
         # Add signal handlers so that when we get a SIGTERM or SIGINT, we can clean up the bot
         GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGTERM, self.handle_glib_shutdown)

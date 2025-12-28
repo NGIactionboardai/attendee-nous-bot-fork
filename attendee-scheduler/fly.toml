@@ -1,0 +1,12 @@
+app = "attendee-scheduler"
+primary_region = "iad"
+
+min_machines_running = 1
+
+[build]
+
+[env]
+  DJANGO_SETTINGS_MODULE = "attendee.settings.production"
+
+[processes]
+  scheduler = "python manage.py run_scheduler"

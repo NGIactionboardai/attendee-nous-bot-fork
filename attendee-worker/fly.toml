@@ -1,0 +1,10 @@
+app = "attendee-worker"
+primary_region = "iad"
+
+[env]
+DJANGO_SETTINGS_MODULE = "attendee.settings.production"
+
+[vm]
+memory = "2048mb"
+cpu_kind = "shared"
+cpus = 4

@@ -19,5 +19,6 @@ class Command(BaseCommand):
 
         # Call your task directly
         result = run_bot.run(options["botid"])
+        # result = run_bot(options["botid"])
 
         logger.info(f"Run bot task completed with result: {result}")

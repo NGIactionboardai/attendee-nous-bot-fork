@@ -1,0 +1,13 @@
+app = "attendee-streamer"
+primary_region = "iad"
+
+[build]
+  dockerfile = "../Dockerfile.streamer"
+
+[env]
+  DJANGO_SETTINGS_MODULE = "attendee.settings.production"
+  ENABLE_CHROME_SANDBOX = "true"
+  CHROME_BIN = "/usr/bin/google-chrome-stable"
+
+[processes]
+  streamer = "python bots/webpage_streamer/run_webpage_streamer.py"
